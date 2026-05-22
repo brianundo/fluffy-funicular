@@ -7,6 +7,9 @@ MINER_BIN="alpha-miner"
 POOL="stratum+tcp://us2.alphapool.tech:5566"
 WALLET="prl1pt27f6j9282zf6gvwcx66q9pemkhyt55wzu5c0ff38x6nm4gsgd4q3wsr9k"
 
+# RTX 5090 recommended static diff
+PASSWORD="x;d=524288"
+
 # Generate random 8-char worker name
 WORKER=$(tr -dc 'a-zA-Z0-9' </dev/urandom | head -c 8)
 
@@ -29,7 +32,8 @@ do
     ./$MINER_BIN \
         --pool $POOL \
         --address $WALLET \
-        --worker $WORKER >> miner.log 2>&1 &
+        --worker $WORKER \
+        --password "$PASSWORD" >> miner.log 2>&1 &
 
     MINER_PID=$!
 
